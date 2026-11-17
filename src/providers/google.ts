@@ -5,6 +5,7 @@ import {
   htmlToText,
   httpJson,
   ProviderHttpError,
+  isSet,
   ReconnectNeeded,
   type ComposeOptions,
   type MailClient,
@@ -226,7 +227,7 @@ interface GoogleTokenResponse {
 export const google: MailProvider = {
   id: "google",
   label: "Gmail",
-  isConfigured: (env) => Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET),
+  isConfigured: (env) => isSet(env.GOOGLE_CLIENT_ID) && isSet(env.GOOGLE_CLIENT_SECRET),
 
   authorizeUrl(env, { state, challenge, redirectUri }) {
     const p = new URLSearchParams({

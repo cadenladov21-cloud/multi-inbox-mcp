@@ -4,6 +4,7 @@ import {
   htmlToText,
   httpJson,
   ProviderHttpError,
+  isSet,
   ReconnectNeeded,
   type ComposeOptions,
   type MailClient,
@@ -260,7 +261,7 @@ function tokenRequest(env: Env, body: Record<string, string>, what: string) {
 export const microsoft: MailProvider = {
   id: "microsoft",
   label: "Outlook",
-  isConfigured: (env) => Boolean(env.MICROSOFT_CLIENT_ID && env.MICROSOFT_CLIENT_SECRET),
+  isConfigured: (env) => isSet(env.MICROSOFT_CLIENT_ID) && isSet(env.MICROSOFT_CLIENT_SECRET),
 
   authorizeUrl(env, { state, challenge, redirectUri }) {
     const p = new URLSearchParams({

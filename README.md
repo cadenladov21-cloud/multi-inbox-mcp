@@ -4,7 +4,9 @@
 
 Claude's built-in email connectors see one account each. This one sees them all.
 
-> **Set up your own copy → [SETUP.md](SETUP.md)** (about 45 minutes, no coding, free hosting on Cloudflare).
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cadenladov21-cloud/multi-inbox-mcp)
+
+> **Set up your own copy → [SETUP.md](SETUP.md)** (about 45 minutes, no coding, free hosting on Cloudflare). The button above handles the Cloudflare part; you still create a Google sign-in app (step 3).
 
 ## What Claude can do
 

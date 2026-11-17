@@ -13,6 +13,15 @@ Run every command in Terminal, inside this folder.
 
 ## 1. Put the server online
 
+**Option A: one click (no Terminal).** Click **[Deploy to Cloudflare](https://deploy.workers.cloudflare.com/?url=https://github.com/cadenladov21-cloud/multi-inbox-mcp)** and sign in to Cloudflare and GitHub. Cloudflare copies this repo to your GitHub and creates the storage. On the deploy page:
+
+- **ENCRYPTION_KEY** and **SESSION_SECRET**: two *different* long random passwords (20+ characters each). A password manager's generator works well. Save them somewhere safe.
+- **Google / Microsoft fields**: type `none` for now. You'll fill them in after step 3 under your Worker's **Settings → Variables and secrets**.
+
+Click **Deploy**, then copy your Worker's address (`https://….workers.dev`). This guide calls it `YOUR_URL`. Skip step 2, go to step 3, and wherever a step says `npx wrangler secret put NAME`, edit that secret in the Cloudflare dashboard instead.
+
+**Option B: Terminal.**
+
 ```bash
 npm install
 ```

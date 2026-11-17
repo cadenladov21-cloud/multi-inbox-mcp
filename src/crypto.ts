@@ -23,13 +23,23 @@ export function randomId(bytes = 16): string {
 
 const keyCache = new Map<string, Promise<CryptoKey>>();
 
-function aesKey(secretB64: string): Promise<CryptoKey> {
-  let k = keyCache.get("aes:" + secretB64);
+/** ENCRYPTION_KEY may be base64 of 32 random bytes (npm run gen-secrets) or any long passphrase (hashed to 32 bytes). */
+async function keyBytes(secret: string): Promise<Uint8Array> {
+  try {
+    const raw = Uint8Array.from(atob(secret), (c) => c.charCodeAt(0));
+    if (raw.length === 32) return raw;
+  } catch {
+    // Not base64: treat as a passphrase.
+  }
+  if (secret.length < 20) throw new Error("ENCRYPTION_KEY is too short: use at least 20 random characters (or run `npm run setup-secrets`).");
+  return new Uint8Array(await crypto.subtle.digest("SHA-256", enc.encode(secret)));
+}
+
+function aesKey(secret: string): Promise<CryptoKey> {
+  let k = keyCache.get("aes:" + secret);
   if (!k) {
-    const raw = Uint8Array.from(atob(secretB64), (c) => c.charCodeAt(0));
-    if (raw.length !== 32) throw new Error("ENCRYPTION_KEY must be base64 of exactly 32 bytes (run `npm run gen-secrets`).");
-    k = crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["encrypt", "decrypt"]);
-    keyCache.set("aes:" + secretB64, k);
+    k = keyBytes(secret).then((raw) => crypto.subtle.importKey("raw", raw, "AES-GCM", false, ["encrypt", "decrypt"]));
+    keyCache.set("aes:" + secret, k);
   }
   return k;
 }

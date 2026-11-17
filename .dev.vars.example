@@ -1,8 +1,13 @@
-# Copy to .dev.vars for local testing (npm run dev). Generate the two secrets with: npm run gen-secrets
-# For a real deploy, set these with `npx wrangler secret put NAME` instead.
+# Secrets for Multi-Inbox. With the Deploy to Cloudflare button, fill these in on the deploy page.
+# For a manual deploy use `npm run setup-secrets` + `npx wrangler secret put NAME`; for local testing copy this file to .dev.vars.
+#
+# ENCRYPTION_KEY: any long random password (20+ characters). Keep it safe; changing it later means re-linking every inbox.
 ENCRYPTION_KEY=
+# SESSION_SECRET: another, different long random password (20+ characters).
 SESSION_SECRET=
+# From Google Cloud (SETUP.md step 3). You can type "none" for now and update these later in the Worker's settings.
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
+# Optional, for Outlook (SETUP.md step 4). Type "none" if you only use Gmail.
 MICROSOFT_CLIENT_ID=
 MICROSOFT_CLIENT_SECRET=

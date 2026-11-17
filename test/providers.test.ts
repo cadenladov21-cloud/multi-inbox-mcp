@@ -197,3 +197,21 @@ describe("account selector", () => {
     expect(ids("nothing")).toEqual([]);
   });
 });
+
+describe("secrets", () => {
+  it("accepts a base64 key or a long passphrase, and rejects short ones", async () => {
+    const { encrypt, decrypt } = await import("../src/crypto");
+    const b64 = Buffer.alloc(32, 7).toString("base64");
+    expect(await decrypt(b64, await encrypt(b64, "hello"))).toBe("hello");
+    const phrase = "correct horse battery staple 2026";
+    expect(await decrypt(phrase, await encrypt(phrase, "hi"))).toBe("hi");
+    await expect(encrypt("short", "x")).rejects.toThrow(/too short/);
+  });
+  it("treats placeholders as unset", async () => {
+    const { isSet } = await import("../src/providers/types");
+    expect(isSet("none")).toBe(false);
+    expect(isSet(" None ")).toBe(false);
+    expect(isSet("")).toBe(false);
+    expect(isSet("abc.apps.googleusercontent.com")).toBe(true);
+  });
+});

@@ -143,3 +143,8 @@ export function htmlToText(html: string): string {
 export function clip(text: string, max = 12000): string {
   return text.length > max ? text.slice(0, max) + `\n\n[…truncated ${text.length - max} characters]` : text;
 }
+
+/** A secret counts as set unless it's empty or a placeholder like "none". */
+export function isSet(v: string | undefined): boolean {
+  return Boolean(v && !["none", "-", "todo", "x"].includes(v.trim().toLowerCase()));
+}
