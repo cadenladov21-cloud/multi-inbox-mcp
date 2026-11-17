@@ -1,0 +1,8 @@
+# Copy to .dev.vars for local testing (npm run dev). Generate the two secrets with: npm run gen-secrets
+# For a real deploy, set these with `npx wrangler secret put NAME` instead.
+ENCRYPTION_KEY=
+SESSION_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+MICROSOFT_CLIENT_ID=
+MICROSOFT_CLIENT_SECRET=

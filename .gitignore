@@ -1,0 +1,5 @@
+node_modules
+.wrangler
+.dev.vars
+# Your personal deploy config (KV ids, worker name). The committed wrangler.jsonc is the template.
+wrangler.mine.jsonc

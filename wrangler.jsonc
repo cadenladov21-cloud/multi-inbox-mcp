@@ -1,0 +1,17 @@
+{
+  // Cloudflare Worker config for Multi-Inbox MCP. Works as-is for a fresh deploy:
+  // the KV namespaces are created automatically, and the server uses whatever address it's deployed at.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "multi-inbox",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-11-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "vars": {
+    "ENABLE_MOCK_PROVIDER": "false"
+  },
+  "kv_namespaces": [
+    { "binding": "OAUTH_KV" },
+    { "binding": "DATA_KV" }
+  ],
+  "observability": { "enabled": true }
+}
